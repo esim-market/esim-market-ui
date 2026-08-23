@@ -1,22 +1,30 @@
-FROM node:26.7.0-trixie-slim AS build
+FROM node:26.7.0-trixie-slim AS frontend
 
 WORKDIR /app
 
 COPY frontend/package.json frontend/package-lock.json ./
+
 RUN --mount=type=cache,target=/root/.npm \
     npm ci
 
 COPY frontend/ ./
+
+FROM frontend AS build
+
 RUN npm run build
 
-FROM nginx:1.31.4-trixie
+
+FROM nginx:1.31.4-trixie AS production
 
 COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/dist /usr/share/nginx/html
 
 RUN sed -i '/^user  nginx;$/d' /etc/nginx/nginx.conf \
     && touch /var/run/nginx.pid \
-    && chown -R nginx:nginx /var/run/nginx.pid /var/cache/nginx /usr/share/nginx/html
+    && chown -R nginx:nginx \
+       /var/run/nginx.pid \
+       /var/cache/nginx \
+       /usr/share/nginx/html
 
 USER nginx
 
