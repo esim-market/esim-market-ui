@@ -1,6 +1,8 @@
 # AGENTS.md — eSIM Market UI
 
-## Purpose
+## Bootstraping / Initializing
+
+### Purpose
 
 This repository is `esim-market-ui`, the React-based frontend application for the eSIM Market project.
 
@@ -20,7 +22,7 @@ Do not introduce backend services, databases, API implementations, authenticatio
 
 ---
 
-## Required Technology Stack
+### Required Technology Stack
 
 Use:
 
@@ -41,7 +43,7 @@ Do not replace Vite with Webpack, Parcel, Next.js, Remix, or another build/frame
 
 ---
 
-## Required Repository Structure
+### Required Repository Structure
 
 Organize the repository around three main concerns:
 
@@ -84,15 +86,15 @@ nginx/
 frontend/
 ```
 
-### Directory responsibilities
+#### Directory responsibilities
 
-#### `frontend/`
+##### `frontend/`
 
 Contains all React, TypeScript, Vite, npm, application source, frontend static assets, and frontend configuration.
 
 Do not place React source files at repository root.
 
-#### `nginx/`
+##### `nginx/`
 
 Contains nginx configuration and any nginx-specific static/configuration resources.
 
@@ -102,7 +104,7 @@ At minimum it must contain:
 nginx/nginx.conf
 ```
 
-#### `Dockerfiles/`
+##### `Dockerfiles/`
 
 Contains Docker build definitions.
 
@@ -126,7 +128,7 @@ or:
 
 ---
 
-## React and TypeScript Requirements
+### React and TypeScript Requirements
 
 All application source must use TypeScript.
 
@@ -159,7 +161,7 @@ Do not add complex type abstractions for the Hello World implementation.
 
 ---
 
-## React Aria Requirements
+### React Aria Requirements
 
 Use the `react-aria` package as the headless/faceless accessibility and interaction layer.
 
@@ -194,7 +196,7 @@ Do not use React Spectrum visual components unless explicitly requested later.
 
 ---
 
-## Initial UI Requirements
+### Initial UI Requirements
 
 Create a very small page that visibly contains at least:
 
@@ -241,7 +243,7 @@ The goal is to prove that React + TypeScript + Vite + React Aria build correctly
 
 ---
 
-## HTML Requirements
+### HTML Requirements
 
 Keep `frontend/index.html` minimal and valid.
 
@@ -263,7 +265,7 @@ or an equivalent meaningful title.
 
 ---
 
-## Vite Requirements
+### Vite Requirements
 
 Vite is the required build and development tool.
 
@@ -285,7 +287,7 @@ Do not add a backend proxy yet.
 
 ---
 
-## Vite Development File Watching and HMR
+### Vite Development File Watching and HMR
 
 The development environment must react to frontend source changes automatically.
 
@@ -336,7 +338,7 @@ Use safe explicit host configuration if additional hostnames become necessary la
 
 ---
 
-## npm Requirements
+### npm Requirements
 
 Use npm as the package manager.
 
@@ -373,7 +375,7 @@ Do not use yarn, pnpm, or bun unless explicitly requested.
 
 ---
 
-## Docker Build Stage
+### Docker Build Stage
 
 The Docker build stage must use exactly:
 
@@ -415,7 +417,7 @@ unless the Vite configuration explicitly and intentionally defines another outpu
 
 ---
 
-## nginx Runtime Stage
+### nginx Runtime Stage
 
 The final runtime stage must use exactly:
 
@@ -437,7 +439,7 @@ If `nginx:1.31.4-trixie` does not exist or cannot be pulled:
 
 ---
 
-## nginx Configuration File
+### nginx Configuration File
 
 Create a separate configuration file at:
 
@@ -493,7 +495,7 @@ Do not create Kubernetes manifests as part of this task.
 
 ---
 
-## nginx Configuration Requirements
+### nginx Configuration Requirements
 
 The nginx configuration should be minimal and suitable for a Vite-built React SPA.
 
@@ -527,7 +529,7 @@ Keep the actual implementation clean and valid.
 
 ---
 
-## Docker Multi-Stage Architecture
+### Docker Multi-Stage Architecture
 
 Use a multi-stage build:
 
@@ -565,11 +567,11 @@ or the appropriate nginx static serving path used by the configuration.
 
 ---
 
-## Do not leave the image with root user
+### Do not leave the image with root user
 Switch user to non-root existsing one such as nginx or 1001
 Due to most of vulnerability scan tools has issue about root startup of a docker image. 
 
-## Container Port and Host Development Port
+### Container Port and Host Development Port
 
 nginx must listen internally on:
 
@@ -611,7 +613,7 @@ Docker Compose configuration belongs in the separate `esim-market` orchestration
 
 ---
 
-## Docker Build Command
+### Docker Build Command
 
 The implementation must be buildable from repository root using:
 
@@ -626,7 +628,7 @@ The Dockerfiles path must work with this exact build context.
 
 ---
 
-## Development Commands
+### Development Commands
 
 Frontend development without the production nginx container should work using:
 
@@ -659,7 +661,7 @@ http://localhost:5001
 
 ---
 
-## `.dockerignore`
+### `.dockerignore`
 
 Create a repository-root `.dockerignore` suitable for this layout.
 
@@ -689,7 +691,7 @@ or any other files required by the build.
 
 ---
 
-## Existing Files
+### Existing Files
 
 Preserve useful repository files that already exist unless they directly conflict with these instructions.
 
@@ -705,7 +707,7 @@ If generated Vite files conflict with existing repository files, merge carefully
 
 ---
 
-## Scope Boundaries
+### Scope Boundaries
 
 This task is limited to the initial Dockerized UI template.
 
@@ -734,7 +736,7 @@ Kubernetes-specific manifests may be introduced later in the appropriate deploym
 
 ---
 
-## Code Quality
+### Code Quality
 
 Keep the implementation:
 
@@ -761,11 +763,11 @@ Do not disable TypeScript safety merely to make compilation pass.
 
 ---
 
-## Validation Requirements
+### Validation Requirements
 
 Before considering the task complete, perform these checks where the environment permits them.
 
-### Frontend validation
+#### Frontend validation
 
 From `frontend/` run:
 
@@ -778,7 +780,7 @@ The TypeScript and Vite production build must succeed.
 
 If linting is configured, run the lint command as well.
 
-### Development watcher validation
+#### Development watcher validation
 
 Where practical:
 
@@ -789,7 +791,7 @@ Where practical:
 
 Do not claim watcher/HMR validation succeeded unless it was actually tested.
 
-### Docker validation
+#### Docker validation
 
 From repository root:
 
@@ -822,7 +824,7 @@ Clean up the test container afterward.
 
 ---
 
-## Required Behavior
+### Required Behavior
 
 A successful implementation demonstrates that:
 
@@ -843,7 +845,7 @@ A successful implementation demonstrates that:
 
 ---
 
-## Expected Deliverables
+### Expected Deliverables
 
 The completed repository should resemble:
 
@@ -880,7 +882,7 @@ Do not move Docker Compose into this repository.
 
 ---
 
-## Completion Report
+### Completion Report
 
 After implementation, report:
 
@@ -899,3 +901,23 @@ After implementation, report:
 13. any deviation from these instructions.
 
 Do not claim a validation step succeeded unless it was actually executed successfully.
+
+---
+
+## Complex Tuning
+
+**SKIP THIS SECTION FOR NOW.**
+
+This section is intentionally reserved for future work.
+
+Do not infer or implement complex tuning during bootstrap.
+
+---
+
+## Integrating the API SDK with esim connect
+
+**SKIP THIS SECTION FOR NOW.**
+
+This section is intentionally reserved for future work.
+
+Do not infer or implement complex tuning during bootstrap.
