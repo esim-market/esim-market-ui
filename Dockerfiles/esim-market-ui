@@ -3,7 +3,8 @@ FROM node:26.7.0-trixie-slim AS build
 WORKDIR /app
 
 COPY frontend/package.json frontend/package-lock.json ./
-RUN npm ci
+RUN --mount=type=cache,target=/root/.npm \
+    npm ci
 
 COPY frontend/ ./
 RUN npm run build

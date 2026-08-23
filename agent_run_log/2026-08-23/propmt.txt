@@ -1,0 +1,18 @@
+Read and follow the AGENTS.md file in this repository.
+
+Implement the initial eSIM Market UI project exactly as specified there.
+
+Before making changes:
+1. inspect the current repository,
+2. identify any conflicts with existing files,
+3. preserve existing useful files,
+4. then implement the requested structure and application.
+
+After implementation, run all validation steps defined in AGENTS.md and report:
+- files created,
+- files modified,
+- build results,
+- Docker build/runtime results,
+- any deviations or blockers.
+
+Do not silently change any pinned versions or architectural requirements.
