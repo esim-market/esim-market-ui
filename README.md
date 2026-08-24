@@ -1,8 +1,17 @@
 # eSIM Market UI
 
-`esim-market-ui` is the React and TypeScript frontend for the **eSIM Market** project. It uses Vite for development and builds to static assets served by nginx in production.
+`esim-market-ui` is the React and TypeScript web application for eSIM Market. Vite provides the development server, and nginx serves the production build.
 
-## Development
+For detailed architecture, development, and orchestration guidance, see the [root `AGENTS.md`](https://github.com/tolga-kabadurmus/esim-market/blob/main/AGENTS.md).
+
+## Relationship to the other repositories
+
+- [`esim-market`](https://github.com/tolga-kabadurmus/esim-market) runs the complete project with Docker Compose.
+- [`esim-market-backend`](https://github.com/tolga-kabadurmus/esim-market-backend) provides the API and background services used by the UI.
+
+## Run for frontend development
+
+From this repository:
 
 ```bash
 cd frontend
@@ -10,27 +19,21 @@ npm ci
 npm run dev
 ```
 
-Vite listens on all interfaces and uses polling so HMR works reliably with bind mounts, Docker Desktop, and WSL2.
+Open <http://localhost:5173>.
 
-Create a production build with `npm run build` from `frontend/`.
+## Run with the complete project
 
-## Docker
-
-Build from the repository root:
+From the parent `esim-market` repository:
 
 ```bash
-docker build -f ./Dockerfiles/esim-market-ui -t esim-market-ui:local .
+docker compose --profile dev up --build
 ```
 
-Run the production image on port 5001:
+The UI is then available at <http://localhost:5001>.
+
+To build and run only the production nginx image:
 
 ```bash
+docker build -f Dockerfiles/esim-market-ui -t esim-market-ui:local .
 docker run --rm -p 5001:80 esim-market-ui:local
 ```
-
-Open <http://localhost:5001>. The baked-in `nginx/nginx.conf` is installed at `/etc/nginx/conf.d/default.conf`, allowing an orchestrator to replace it at runtime.
-
-## Related Repositories
-
-- `esim-market` — integration and local orchestration
-- `esim-market-backend` — backend APIs and background services
